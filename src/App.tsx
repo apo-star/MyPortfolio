@@ -2,7 +2,9 @@ import "./App.css";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Environment } from "@react-three/drei";
-import { FallingStar } from "./componentsForThree/shader/FallingStar";
+import { Backgroud } from "./componentsForThree/Background";
+import { MainDice } from "./componentsForThree/models/MainDice";
+import { Bloom, DepthOfField, EffectComposer, Vignette } from '@react-three/postprocessing'
 
 function App() {
   return (
@@ -15,20 +17,22 @@ function App() {
       camera={{
         fov: 75,
         near: 0.1,
-        far: 200,
-        position: [10, 4, 10],
+        far: 2000,
+        position: [0, 0, 5],
       }}
     >
       <ambientLight intensity={10} />
       <pointLight position={[10, 10, 10]} intensity={10} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
-      <OrbitControls makeDefault />
+      <OrbitControls makeDefault enableRotate={false} enablePan={false} enableZoom={false} />
       <Environment preset="city" />
-      <mesh castShadow receiveShadow>
-        <sphereGeometry args={[1, 100, 100]} />
-        <meshStandardMaterial color="white" />
-      </mesh>
-      <FallingStar />
+      <Backgroud />
+      <MainDice />
+      <EffectComposer>
+        <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={1} height={50} />
+        <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={400} />
+        <Vignette eskil={false} offset={0.04} darkness={1} />
+      </EffectComposer>
     </Canvas>
   );
 }
