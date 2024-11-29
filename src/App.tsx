@@ -1,39 +1,18 @@
 import "./App.css";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import { Environment } from "@react-three/drei";
-import { Backgroud } from "./componentsForThree/Background";
-import { MainDice } from "./componentsForThree/models/MainDice";
-import { Bloom, DepthOfField, EffectComposer, Vignette } from '@react-three/postprocessing'
+import "./assets/css/font-style.css";
+import { Scene } from "./componentsForThree/Scene";
+import { UI } from "./components/UI";
 
 function App() {
   return (
-    <Canvas
-      style={{
-        width: "100vw",
-        height: "100vh",
-        background: "#000",
-      }}
-      camera={{
-        fov: 75,
-        near: 0.1,
-        far: 2000,
-        position: [0, 0, 5],
-      }}
-    >
-      <ambientLight intensity={10} />
-      <pointLight position={[10, 10, 10]} intensity={10} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
-      <OrbitControls makeDefault enableRotate={false} enablePan={false} enableZoom={false} />
-      <Environment preset="city" />
-      <Backgroud />
-      <MainDice />
-      <EffectComposer>
-        <DepthOfField focusDistance={0} focalLength={0.02} bokehScale={1} height={50} />
-        <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={400} />
-        <Vignette eskil={false} offset={0.04} darkness={1} />
-      </EffectComposer>
-    </Canvas>
+    <>
+      <div className="fixed z-0">
+        <Scene />
+      </div>
+      <div className="relative z-10">
+        <UI />
+      </div>
+    </>
   );
 }
 
