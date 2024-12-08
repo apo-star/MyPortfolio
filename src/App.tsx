@@ -1,4 +1,4 @@
-import "./App.css";
+import "./assets/css/App.css";
 import "./assets/css/font-style.css";
 import { Scene } from "./componentsForThree/Scene";
 import { UI } from "./components/UI";

@@ -1,6 +1,8 @@
 import * as THREE from "three";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
+import { useAction } from "../../../store";
+import { useEffect, useMemo } from "react";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -15,6 +17,14 @@ type GLTFResult = GLTF & {
 
 export function MainDice(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF("/models/dice.glb") as GLTFResult;
+  const { startRoll } = useAction(["startRoll"]);
+
+  useMemo(() => {
+    if (startRoll) {
+      console.log("startRoll");
+    }
+  }, [startRoll]);
+
   return (
     <group {...props} dispose={null}>
       <group
@@ -29,11 +39,11 @@ export function MainDice(props: JSX.IntrinsicElements["group"]) {
         <mesh geometry={nodes.Solid002_Material001_0.geometry}>
           <meshStandardMaterial
             transparent
-            opacity={0.5}
-            roughness={0.3}
+            opacity={0.9}
+            roughness={0.1}
             metalness={1}
             emissive={0xffffff}
-            emissiveIntensity={0.5}
+            emissiveIntensity={0.8}
           />
         </mesh>
       </group>

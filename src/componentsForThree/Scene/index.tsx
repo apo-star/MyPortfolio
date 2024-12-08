@@ -2,12 +2,6 @@ import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Backgroud } from "../Background";
 import { MainDice } from "../models/MainDice";
-import {
-  Bloom,
-  DepthOfField,
-  EffectComposer,
-  Vignette,
-} from "@react-three/postprocessing";
 
 export const Scene = () => {
   return (
@@ -42,16 +36,6 @@ export const Scene = () => {
       <Environment preset="city" />
       <Backgroud />
       <MainDice />
-      <EffectComposer>
-        <DepthOfField
-          focusDistance={0}
-          focalLength={0.02}
-          bokehScale={1}
-          height={50}
-        />
-        <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={400} />
-        <Vignette eskil={false} offset={0.04} darkness={1} />
-      </EffectComposer>
     </Canvas>
   );
 };
